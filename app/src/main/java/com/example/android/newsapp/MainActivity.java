@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         // Get network status
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-        // Logic to determine if a nework connection is present and get data
+        // Logic to determine if a network connection is present and get data
         if (networkInfo != null && networkInfo.isConnected()) {
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(NEWS_LOADER_ID, null, this);
