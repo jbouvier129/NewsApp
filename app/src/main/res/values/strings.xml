@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">News App</string>
+    <string name="settings">News Settings</string>
 
     <!--Internet Connection Status-->
     <string name="no_internet_connection">No Internet Connection Found</string>
@@ -9,5 +10,9 @@
 
     <!--Author Default-->
     <string name="author_default">No Author Information Available</string>
+
+    <!--Settings Menu Strings-->
+    <string name="api_search_term">Search Term</string>
+    <string name="search_term_key" translatable="false">search_term</string>
 
 </resources>

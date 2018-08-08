@@ -4,11 +4,15 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -24,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 
     // Guardian API URL for technology in the science section
     private static final String GUARDIANAPI_REQUEST_URL =
-            "https://content.guardianapis.com/search?show-tags=contributor&order-by=newest&section=science&from-date=2018-01-01&page-size=50&q=technology&api-key=9c2f2d4e-ed32-474b-9cbb-5252e34966f6";
+            "https://content.guardianapis.com/search?show-tags=contributor&page-size=50"; //&q=technology&api-key=9c2f2d4e-ed32-474b-9cbb-5252e34966f6";
 
     private static final int NEWS_LOADER_ID = 1;
     private NewsAdapter mAdapter;
@@ -75,7 +79,24 @@ public class MainActivity extends AppCompatActivity
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
-        return new NewsLoader(this, GUARDIANAPI_REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String userSearchTerm = sharedPrefs.getString(
+                getString(R.string.search_term_key),
+                getString(R.string.api_search_term));
+
+        Uri baseUri = Uri.parse(GUARDIANAPI_REQUEST_URL);
+
+        // Prepare base uri
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value
+        uriBuilder.appendQueryParameter("q", userSearchTerm);
+        uriBuilder.appendQueryParameter("api-key", "9c2f2d4e-ed32-474b-9cbb-5252e34966f6");
+
+        // Return the uri with user preference
+        return new NewsLoader(this, uriBuilder.toString());
+
     }
 
     @Override
@@ -101,5 +122,25 @@ public class MainActivity extends AppCompatActivity
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    @Override
+    // Initialize the settings menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    //Get the selected settings menu item
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
