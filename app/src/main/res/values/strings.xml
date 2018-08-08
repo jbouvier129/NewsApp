@@ -15,4 +15,18 @@
     <string name="api_search_term">Search Term</string>
     <string name="search_term_key" translatable="false">search_term</string>
 
+    <!--Order By Menu Strings-->
+    <string name="order_by_label">Order By</string>
+    <string name="order_by_key" translatable="false">order_by</string>
+    <string name="order_by_default" translatable="false">@string/order_by_relevance</string>
+
+    <string name="order_by_relevance_label">Relevance</string>
+    <string name="order_by_relevance" translatable="false">relevance</string>
+
+    <string name="order_by_newest_label">Newest</string>
+    <string name="order_by_newest" translatable="false">newest</string>
+
+    <string name="order_by_oldest_label">Oldest</string>
+    <string name="order_by_oldest" translatable="false">oldest</string>
+
 </resources>

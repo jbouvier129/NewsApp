@@ -85,12 +85,18 @@ public class MainActivity extends AppCompatActivity
                 getString(R.string.search_term_key),
                 getString(R.string.api_search_term));
 
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.order_by_key),
+                getString(R.string.order_by_default)
+        );
+
         Uri baseUri = Uri.parse(GUARDIANAPI_REQUEST_URL);
 
         // Prepare base uri
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         // Append query parameter and its value
+        uriBuilder.appendQueryParameter("order-by", orderBy);
         uriBuilder.appendQueryParameter("q", userSearchTerm);
         uriBuilder.appendQueryParameter("api-key", "9c2f2d4e-ed32-474b-9cbb-5252e34966f6");
 

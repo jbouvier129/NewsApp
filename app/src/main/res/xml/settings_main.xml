@@ -9,5 +9,11 @@
         android:selectAllOnFocus="true"
         android:title="@string/api_search_term" />
 
+    <ListPreference
+        android:defaultValue="@string/order_by_relevance"
+        android:entries="@array/order_by_labels"
+        android:entryValues="@array/order_by_values"
+        android:key="@string/order_by_key"
+        android:title="@string/order_by_label" />
 
 </PreferenceScreen>
